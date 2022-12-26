@@ -1,0 +1,46 @@
+<div class="p-4">
+  <div class="row align-items-center" >
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 pt-4 align-self-center">
+      <mat-card class="example-card">
+        <!-- <div class="container p-500"> -->
+        <!-- <div class="col"> -->
+            <mat-card-header>
+              <div class="container-fluid text-center">
+                <mat-card-title>evento: {{eventos?.nome}}</mat-card-title>
+                <mat-card-subtitle>descrição: {{eventos?.descricao}}</mat-card-subtitle>
+                <mat-card-subtitle>local: {{eventos?.local}}</mat-card-subtitle>
+                <mat-card-subtitle>data: {{eventos?.data}}</mat-card-subtitle>
+                <mat-card-subtitle>detalhes: {{eventos?.detalhes}}</mat-card-subtitle>
+                <mat-card-subtitle>categoria: {{eventos?.categoria.nome}}</mat-card-subtitle>
+                <mat-card-subtitle>criado em: {{eventos?.createdAt}}</mat-card-subtitle>
+                <mat-card-subtitle>última atualização: {{eventos?.updatedAt}}</mat-card-subtitle>
+                <!-- <img class="img" src={{user.image}} alt="image"> -->
+              </div>
+            </mat-card-header>
+
+            <div class="button-actions">
+              <button (click)="onUpdate(eventos.id)" mat-icon-button color="" aria-label="Editar produto"> <!--(click)="onUpdate(evento.id)" -->
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button (click)="onRemove(eventos.id)" mat-icon-button color="warn" aria-label="Remover produto"> <!--(click)="onRemove(evento.id)"-->
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button mat-icon-button color="accent" aria-label="add favorito">
+                <mat-icon>favorite</mat-icon>
+              </button>
+            </div>
+
+            <button (click)="onCancel()" mat-raised-button>Voltar</button> <!--(click)="onCancel()"-->
+
+
+      </mat-card>
+      <div class="w-100"></div>
+  </div>
+
+</div>
+
+</div>
+
+

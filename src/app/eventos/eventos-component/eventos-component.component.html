@@ -1,0 +1,64 @@
+<div class="flex">
+  <div class="pesquisa-add">
+    <form class="full-width" [formGroup]="formGroupPesquisaEvento">
+      <mat-form-field>
+        <input matInput placeholder="pesquisar evento..." formControlName="nome" autocomplete="off"/>
+      </mat-form-field>
+      <button class="button-pesquisa" mat-raised-button color="primary" (click)="onSearchEvento()">Pesquisar</button>
+      <button class="button-pesquisa" mat-raised-button type="button" color="secondary" (click)="limparPesquisaEvento()">Limpar</button>
+    </form>
+
+    <div class="main-actions">
+      <div class="add-button">
+        <button class="events-button" (click)="onAdd()" mat-mini-fab color="primary" aria-label="Adicionar um evento"> <!---->
+          <mat-icon>add</mat-icon>
+        </button>
+        <p class="pt-2 ">adicionar evento</p>
+      </div>
+    </div>
+  </div>
+
+    <div class="p-4">
+      <div class="row align-items-center" >
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 pt-4 align-self-center" *ngFor="let evento of eventos">
+          <mat-card (click)="onClick(evento.id)" class="example-card">
+            <!-- <div class="container p-500"> -->
+            <!-- <div class="col"> -->
+                <mat-card-header>
+                  <div class="container-fluid text-center">
+                    <mat-card-title>evento: {{evento.nome}}</mat-card-title>
+                    <!-- <mat-card-subtitle>descrição: {{evento.descricao}}</mat-card-subtitle> -->
+                    <!-- <mat-card-subtitle>local: {{evento.local}}</mat-card-subtitle> -->
+                    <!-- <mat-card-subtitle>data: {{evento.data}}</mat-card-subtitle> -->
+                    <!-- <mat-card-subtitle>detalhes: {{evento.detalhes}}</mat-card-subtitle> -->
+                    <mat-card-subtitle>categoria: {{evento.categoria.nome}}</mat-card-subtitle>
+                    <!-- <mat-card-subtitle>criado em: {{evento.createdAt}}</mat-card-subtitle> -->
+                    <!-- <mat-card-subtitle>última atualização: {{evento.updatedAt}}</mat-card-subtitle> -->
+                    <!-- <img class="img" src={{user.image}} alt="image"> -->
+                  </div>
+                </mat-card-header>
+
+                <div class="button-actions">
+                  <button (click)="onUpdate(evento.id)" mat-icon-button color="" aria-label="Editar evento"> <!--(click)="onUpdate(evento.id)" -->
+                    <mat-icon>edit</mat-icon>
+                  </button>
+
+                  <button (click)="onRemove(evento.id)" mat-icon-button color="warn" aria-label="Remover evento"> <!--(click)="onRemove(evento.id)"-->
+                    <mat-icon>delete</mat-icon>
+                  </button>
+
+                  <button mat-icon-button color="accent" aria-label="add favorito">
+                    <mat-icon>favorite</mat-icon>
+                  </button>
+                </div>
+
+
+          </mat-card>
+          <div class="w-100"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>

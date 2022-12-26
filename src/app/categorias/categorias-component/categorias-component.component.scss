@@ -1,0 +1,41 @@
+mat-card
+{
+  max-width: 80%;
+  margin: 2em auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.full-width
+{
+  width: 100%;
+}
+
+.min-width
+{
+  width: 100%;
+  min-width: 150px; //responsividade
+}
+
+table {
+  width: 100%;
+}
+
+.loading-spinner
+{
+  padding: 25px;
+  background-color: rgb(209, 208, 208);
+  display:flex;
+  align-items: center;
+  justify-content: center;;
+}
+
+.buttons
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+
+}

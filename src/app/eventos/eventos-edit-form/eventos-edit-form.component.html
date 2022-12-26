@@ -1,0 +1,55 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>formulario de evento</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="form">
+
+    <mat-form-field class="full-width">
+      <input type="text" matInput placeholder="Evento*" formControlName="nome">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Descrição*" formControlName="descricao"></textarea>
+      <!-- <input type="text" matInput placeholder="Descrição" formControlName="descricao"> -->
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input type="text" matInput placeholder="Local*" formControlName="local">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Detalhes" formControlName="detalhes"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input type="datetime-local" matInput max="9999-12-31T23:59" class="form-control" formControlName="data">
+    </mat-form-field>
+
+
+
+    <!-- <mat-form-field class="full-width">
+      <input matInput placeholder="Categoria" formControlName="category">
+    </mat-form-field> -->
+
+    <div *ngIf="categorias$ | async as categorias; else loading">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Categoria" [(ngModel)]="cat" formControlName="categoria">
+          <mat-option *ngFor="let categoria  of categorias" [value]="categoria" >{{ categoria.nome }}</mat-option>
+       </mat-select>
+      </mat-form-field>
+     </div>
+
+   <ng-template #loading>
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+
+  </form>
+
+  <mat-card-actions>
+    <button (click)="onSubmitEdit()" mat-raised-button color="primary" *ngIf = "form.status == 'VALID'" >Salvar</button> <!--(click)="onSubmit()"-->
+    <button [routerLink]="['/eventos']"   mat-raised-button >Cancelar</button> <!--(click)="onCancel()"-->
+  </mat-card-actions>
+</mat-card>

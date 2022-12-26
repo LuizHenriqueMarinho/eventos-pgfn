@@ -1,0 +1,94 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>criar categoria</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="formCategory">
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Categoria" formControlName="nome">
+    </mat-form-field>
+
+
+    <!-- <mat-form-field class="full-width">
+      <input matInput placeholder="Categoria" formControlName="category">
+    </mat-form-field> -->
+
+
+  </form>
+
+  <mat-card-actions>
+    <button (click)="onSubmit()" mat-raised-button color="primary" >Salvar</button> <!--(click)="onSubmit()"  *ngIf = "form.status == 'VALID'"  -->
+    <button (click)="onCancel()" mat-raised-button >Voltar</button> <!--(click)="onCancel()"-->
+  </mat-card-actions>
+</mat-card>
+
+
+<mat-card>
+  <mat-card-content>
+
+    <!-- <mat-toolbar color="secondary">
+      <span>
+        Produtos disponíveis
+        <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um curso">
+          <mat-icon >add</mat-icon>
+        </button>
+      </span>
+    </mat-toolbar> -->
+
+    <div *ngIf="categorias$ | async as categories; else loading">
+      <table mat-table [dataSource]="categorias$" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>lista de categorias</th>
+          <td mat-cell *matCellDef="let categoria"> {{ categoria.nome }} </td>
+        </ng-container>
+
+
+        <!-- add Column -->
+        <ng-container matColumnDef="actions">
+          <div>
+            <mat-header-cell class="buttons" *matHeaderCellDef>
+              <!-- <button (click)="onAdd()" mat-mini-fab color="accent" aria-label="Adicionar um curso">
+                <mat-icon >add</mat-icon>
+              </button> -->
+            </mat-header-cell>
+          </div>
+
+          <div>
+            <mat-cell class="buttons" *matCellDef="let categoria">
+
+              <button (click)="onUpdate(categoria.id)" mat-icon-button color="" aria-label="Editar categoria">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button (click)="onRemove(categoria.id)" mat-icon-button color="warn" aria-label="Remover categoria"> <!--(click)="onRemove(pessoa.id)"-->
+                <mat-icon>delete</mat-icon>
+              </button>
+
+            </mat-cell>
+          </div>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <!-- <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef> Symbol </th>
+          <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+        </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <ng-template #loading>
+      <div class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>"
+    </ng-template>
+
+  </mat-card-content>
+</mat-card>
