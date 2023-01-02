@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.pgfnform.pgfnform.entities.Categorias;
 import com.pgfnform.pgfnform.repository.CategoriasRepository;
 
@@ -32,12 +33,17 @@ public class CategoriasServices {
 	
 	public Categorias update(Categorias categoria, Long id)
 	{
-		Categorias categoryUptaded = findById(id);
-		categoryUptaded.setNome(categoria.getNome()); 
-		return categoriasRepository.save(categoryUptaded);
+		Categorias categoriaUptaded = findById(id);
+		categoriaUptaded.setNome(categoria.getNome()); 
+		return categoriasRepository.save(categoriaUptaded);
 	}
 	
 	public void delete(Long id) {
 		categoriasRepository.deleteById(id);
+	}
+	
+	public List<Categorias> search(String nome) {
+		List<Categorias> categorias =  categoriasRepository.findCategoriaByName(nome);
+		return categorias;
 	}
 }

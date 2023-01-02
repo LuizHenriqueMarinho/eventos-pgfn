@@ -41,6 +41,10 @@ public class Eventos implements Serializable{
 	@JoinColumn(name = "category_id")
 	private Categorias categoria;
 
+	@ManyToOne
+	@JoinColumn(name = "imagem_id")
+	private Arquivo imagem;
+	
 	//cria uma coluna com a data e hora da criação dos itens 
     @Column(updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
@@ -52,27 +56,12 @@ public class Eventos implements Serializable{
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-	
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
+    
+	public Eventos() {
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public Eventos() {}
-
-	public Eventos(Long id, String nome, String descricao, String local, LocalDateTime data, String hora,
-			String detalhes, Categorias categoria) {
+	public Eventos(Long id, String nome, String descricao, String local, LocalDateTime data, String detalhes,
+			Categorias categoria, Arquivo imagem, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -81,6 +70,9 @@ public class Eventos implements Serializable{
 		this.data = data;
 		this.detalhes = detalhes;
 		this.categoria = categoria;
+		this.imagem = imagem;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
 	public Long getId() {
@@ -115,7 +107,6 @@ public class Eventos implements Serializable{
 		this.local = local;
 	}
 
-
 	public LocalDateTime getData() {
 		return data;
 	}
@@ -138,6 +129,30 @@ public class Eventos implements Serializable{
 
 	public void setCategoria(Categorias categoria) {
 		this.categoria = categoria;
+	}
+
+	public Arquivo getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(Arquivo imagem) {
+		this.imagem = imagem;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	public static long getSerialversionuid() {

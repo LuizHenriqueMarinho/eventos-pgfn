@@ -15,16 +15,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { CategoriaDialogConfirmationComponent } from './components/categoria-dialog-confirmation/categoria-dialog-confirmation.component';
-import { CategoriasEditComponent } from './categorias/categorias-edit/categorias-edit/categorias-edit.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntlPtBr } from './util/paginator-prbr-i8n';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoriasEditComponent,
     HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,11 +37,12 @@ import { HeaderComponent } from './components/header/header.component';
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
-    //MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

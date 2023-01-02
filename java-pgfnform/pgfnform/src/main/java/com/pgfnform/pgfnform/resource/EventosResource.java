@@ -35,8 +35,8 @@ public class EventosResource {
 	@GetMapping
 	public ResponseEntity<Page<Eventos>> findAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "5") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+			@RequestParam(value = "linesPerPage", defaultValue = "3") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "updatedAt") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction)
 	{
 		Page<Eventos> eventos = eventosServices.findAll(page, linesPerPage, orderBy, direction); 

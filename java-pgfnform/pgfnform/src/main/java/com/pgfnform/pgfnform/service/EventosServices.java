@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.pgfnform.pgfnform.entities.Arquivo;
 import com.pgfnform.pgfnform.entities.Eventos;
 import com.pgfnform.pgfnform.repository.EventosRepository;
 
@@ -18,6 +19,9 @@ public class EventosServices {
 	@Autowired
 	private EventosRepository eventosRepository;
 	
+	@Autowired
+	private ArquivoService arquivoService;
+
 	
 	public Page<Eventos> findAll(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction) , orderBy);
@@ -34,12 +38,19 @@ public class EventosServices {
 	
 	public Eventos save(Eventos eventos)
 	{
+		Arquivo imagem = arquivoService.find(eventos.getImagem().getId());
+		eventos.setImagem(imagem);
+			
 		return eventosRepository.save(eventos);
 	}
 	
 	public Eventos update(Eventos eventos, Long id)
-	{
+	{	
 		Eventos eventosUpdated = findById(id);
+	
+		Arquivo imagem = arquivoService.find(eventos.getImagem().getId());
+		eventosUpdated.setImagem(imagem);
+
 		eventosUpdated.setNome(eventos.getNome());
 		eventosUpdated.setDescricao(eventos.getDescricao());
 		eventosUpdated.setLocal(eventos.getLocal());
@@ -49,9 +60,14 @@ public class EventosServices {
 	}	
 	
 	public void delete(Long id) {
+		Optional<Eventos> evento = eventosRepository.findById(id);
 		eventosRepository.deleteById(id);
+		if(evento.get().getImagem() != null ) //get() para Optional
+		{
+			arquivoService.delete(evento.get().getImagem().getId());
+		}
 	}
-	
+	;
 	public List<Eventos> search(String nome) {
 		List<Eventos> eventos =  eventosRepository.findEventoByName(nome);
 		return eventos;

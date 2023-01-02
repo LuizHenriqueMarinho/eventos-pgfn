@@ -2,15 +2,15 @@
   <div class="pesquisa-add">
     <form class="full-width" [formGroup]="formGroupPesquisaEvento">
       <mat-form-field>
-        <input matInput placeholder="pesquisar evento..." formControlName="nome" autocomplete="off"/>
+        <input matInput placeholder="pesquisar..." formControlName="nome" autocomplete="off"/>
       </mat-form-field>
-      <button class="button-pesquisa" mat-raised-button color="primary" (click)="onSearchEvento()">Pesquisar</button>
-      <button class="button-pesquisa" mat-raised-button type="button" color="secondary" (click)="limparPesquisaEvento()">Limpar</button>
+      <button id="button-pesquisa" mat-raised-button type="button"  (click)="onSearchEvento()">Pesquisar</button>
+      <button id="button-limpar" mat-raised-button type="button" color="secondary" (click)="limparPesquisaEvento()">Limpar</button>
     </form>
 
     <div class="main-actions">
       <div class="add-button">
-        <button class="events-button" (click)="onAdd()" mat-mini-fab color="primary" aria-label="Adicionar um evento"> <!---->
+        <button class="events-button" (click)="onAdd()" mat-mini-fab aria-label="Adicionar um evento"> <!---->
           <mat-icon>add</mat-icon>
         </button>
         <p class="pt-2 ">adicionar evento</p>
@@ -18,9 +18,20 @@
     </div>
   </div>
 
+  <div *ngIf="!eventos.length">
+    <h2>NÃO FOI POSSÍVEL ENCONTRAR RESULTADOS PARA O TERMO PROCURADO</h2>
+    <h4>Verifique se você digitou as palavras corretamente ou tente novamente a busca.
+    <h3>DICAS:</h3>
+    <h5>- Verifique se não há erro de digitação.</h5>
+    <h5>- Tente utilizar uma única palavra.</h5>
+    <h5>- Tente buscar por termos menos específicos.</h5>
+    <h5>- Use os filtros da busca.</h5>
+    <h5>- Procure utilizar sinônimos ao termo desejado.</h5></h4>
+  </div>
+
     <div class="p-4">
       <div class="row align-items-center" >
-        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 pt-4 align-self-center" *ngFor="let evento of eventos">
+        <div class="col-sm-12 col-md-6 col-lg-4 pt-4 align-self-center" id="if-um-card" *ngFor="let evento of eventos">
           <mat-card (click)="onClick(evento.id)" class="example-card">
             <!-- <div class="container p-500"> -->
             <!-- <div class="col"> -->
@@ -35,6 +46,7 @@
                     <!-- <mat-card-subtitle>criado em: {{evento.createdAt}}</mat-card-subtitle> -->
                     <!-- <mat-card-subtitle>última atualização: {{evento.updatedAt}}</mat-card-subtitle> -->
                     <!-- <img class="img" src={{user.image}} alt="image"> -->
+                    <img class="card-img-top img-responsive center-block imagem-noticia" src={{createUrl(evento.imagem.id)}} alt="image">
                   </div>
                 </mat-card-header>
 
@@ -47,18 +59,35 @@
                     <mat-icon>delete</mat-icon>
                   </button>
 
-                  <button mat-icon-button color="accent" aria-label="add favorito">
+                  <button mat-icon-button id="favorite-color" aria-label="add favorito">
                     <mat-icon>favorite</mat-icon>
                   </button>
                 </div>
-
-
           </mat-card>
+
           <div class="w-100"></div>
+
       </div>
 
     </div>
 
   </div>
 
-  </div>
+
+</div>
+
+<!-- <div >
+  <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalElements" [boundaryLinks]="true"></ngb-pagination> <!--class="d-flex justify-content-end"-->
+<!--</div> -->
+
+<!-- <div class="text-center m-3">
+  <mat-paginator class="d-flex justify-content-center" [pageSize]="pageSize" [length]="totalElements"></mat-paginator>
+</div> -->
+
+<mat-paginator class="d-flex justify-content-center" #paginator
+[length]="totalElements"
+[pageSize]="pageSize"
+aria-label="Select page"
+(page)="nextPage($event)">
+</mat-paginator>
+

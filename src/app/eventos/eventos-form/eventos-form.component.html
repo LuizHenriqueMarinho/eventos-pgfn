@@ -26,6 +26,13 @@
       <input type="datetime-local" matInput max="9999-12-31T23:59" class="form-control" formControlName="data">
     </mat-form-field>
 
+    <div class="mb-3">
+      <label class="form-label" id="label-file-1">Imagem</label>
+      <input formControlName="imagem" required class="form-control" type="file" (change)="onFileChanged($event)" accept="image/*">
+      <div class="invalid-feedback">
+        Imagem é obrigatório.
+      </div>
+    </div>
 
 
     <!-- <mat-form-field class="full-width">
@@ -50,7 +57,7 @@
   </form>
 
   <mat-card-actions>
-    <button (click)="onSubmit()" mat-raised-button color="primary" *ngIf = "form.status == 'VALID'" >Salvar</button> <!---->
+    <button (click)="onSubmit()" mat-raised-button id="save-button" *ngIf = "form.status == 'VALID'" >Salvar</button> <!---->
     <button (click)="onCancel()" mat-raised-button >Cancelar</button> <!--(click)="onCancel()"-->
   </mat-card-actions>
   <p>A opção "Salvar" só aparece quando todos os campos obrigatórios* forem preenchidos</p>

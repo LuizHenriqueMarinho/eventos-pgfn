@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.pgfnform.pgfnform.entities.Categorias;
 import com.pgfnform.pgfnform.service.CategoriasServices;
@@ -54,6 +55,11 @@ public class CategoriasResource {
 	{
 		categoriasServices.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@RequestMapping(value = "/busca", method = RequestMethod.GET)
+	public ResponseEntity<List<Categorias>> search(@RequestParam(value = "nome", defaultValue = "") String nome) {
+		return ResponseEntity.ok(categoriasServices.search(nome));
 	}
 	
 }

@@ -1,4 +1,5 @@
 import { Categorias } from "src/app/shared/models/Categorias";
+import { Arquivo } from "./arquivo";
 
 export interface Eventos {
   id: number;
@@ -8,6 +9,7 @@ export interface Eventos {
   data: string;
   detalhes: string;
   categoria: Categorias;
+  imagem: Arquivo;
   createdAt: string;
   updatedAt: string;
 };

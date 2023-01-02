@@ -1,6 +1,6 @@
 import { EventosServicesService } from 'src/app/shared/services/eventos-services.service';
 import { Component } from '@angular/core';
-import { FormControl, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { Categorias } from 'src/app/shared/models/Categorias';
@@ -10,6 +10,9 @@ import { catchError, } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
+import { ArquivoService } from 'src/app/shared/services/arquivo.service';
+import { Arquivo } from 'src/app/shared/models/arquivo';
+import { environment } from 'src/enviroments/enviroment';
 
 @Component({
   selector: 'app-eventos-edit-form',
@@ -20,20 +23,27 @@ export class EventosEditFormComponent {
 
   idEvento: number;
 
+  eventoId: number;
+
   categorias$: Observable<Categorias[]>; //inicializando vazia
+
+  categorias: Categorias[] = [];
 
   cat: string;
 
-  form = this.formBuilder.group(
-    {
-      nome: ["", Validators.required],
-      descricao: ["", Validators.required],
-      local: ["", Validators.required],
-      data:["", Validators.required],
-      detalhes:[""],
-      categoria: []
-    });
+  idImagem : number;
 
+  eventos: Eventos
+  // form = this.formBuilder.group(
+  //   {
+  //     nome: ["", Validators.required],
+  //     descricao: ["", Validators.required],
+  //     local: ["", Validators.required],
+  //     data:["", Validators.required],
+  //     detalhes:[""],
+  //     categoria: []
+  //   });
+  form: FormGroup;
 
     constructor(
       private formBuilder: NonNullableFormBuilder,
@@ -42,9 +52,28 @@ export class EventosEditFormComponent {
       private serviceCategorias: CategoriasService,
       private snackBar: MatSnackBar,
       private router: Router,
+      private arquivoService: ArquivoService,
+      private eventosService: EventosServicesService
       ) {}
 
     ngOnInit(): void{
+
+      this.form = new FormGroup({
+        nome: new FormControl(),
+        descricao: new FormControl('', [Validators.required]),
+        local: new FormControl('', [Validators.required]),
+        data: new FormControl('', [Validators.required]),
+        detalhes: new FormControl(''),
+        categoria:new FormGroup({
+          id: new FormControl('', [Validators.required]),
+          nome: new FormControl('', [Validators.required]),
+        }),
+        imagem: new FormGroup({
+          id: new FormControl('', [Validators.required])
+        }),
+
+      })
+
       this.onListCategory()
       this.currentRoute.params.pipe(
         map((params: any) => params['id']),
@@ -52,7 +81,18 @@ export class EventosEditFormComponent {
       )
         .subscribe(evento => this.updateForm(evento))
 
+      this.eventoId = this.currentRoute.snapshot.params["id"]
+      this.onList(this.eventoId);
     }
+
+    onList(id: number) //somente para listar a imagem
+    {
+      this.eventosService.getById(id).subscribe(res => {
+        this.eventos = res;
+      })
+
+    }
+
 
     updateForm(evento: Eventos) {
 
@@ -78,16 +118,19 @@ export class EventosEditFormComponent {
 
       console.log(evento)
       this.idEvento = evento.id;
-      this.form.patchValue({  //seta o valor do campo [""] => nome
-        nome: evento.nome,
-        descricao: evento.descricao,
-        local: evento.local,
-        data: evento.data,
-        detalhes: evento.detalhes,
-        categoria: evento.categoria
-      })
+      // this.form.patchValue({  //seta o valor do campo [""] => nome
+      //   nome: evento.nome,
+      //   descricao: evento.descricao,
+      //   local: evento.local,
+      //   data: evento.data,
+      //   detalhes: evento.detalhes,
+      //   categoria: evento.categoria
+      // })
+      // console.log(evento.categoria)
 
-      this.cat = evento.categoria.nome
+      this.form.patchValue(evento);
+   //  this.cat = [`${evento.categoria.nome}`]
+     //this.cat = evento.categoria.nome
     }
 
     onListCategory()
@@ -124,4 +167,29 @@ export class EventosEditFormComponent {
     private onError() {
       this.snackBar.open("erro ao editar evento", "", {duration: 3000})
     }
+
+
+    onFileChanged($event: Event): void {
+
+      const eventos = this.form.value as Eventos;
+
+      this.arquivoService.deleteArquivo(eventos.imagem.id)
+
+      const target = $event.target as HTMLInputElement; /////<=
+      const files = target.files as FileList; /////<=
+      if (files && files.length) {    ////<=
+
+      const file = files[0];  //<=
+      this.arquivoService.uploadArquivo(file).subscribe((arquivo: Arquivo) => {
+        this.idImagem = arquivo.id;
+        this.form.get('imagem.id').setValue(this.idImagem);
+      })
+
+      }
+    }
+
+    public createUrl(id : number): string {
+      return `${environment.apiUrlBase}/arquivo/${id}`;
+    }
+
 }

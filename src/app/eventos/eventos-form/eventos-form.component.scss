@@ -16,10 +16,17 @@ mat-card
   text-align: center;
   display: flex;
   align-items: center;
+  margin-top: 70px;
 }
 
 mat-card-header
 {
   margin-bottom: 15px;
+}
+
+#save-button
+{
+  background-color: #930035;
+  color:white;
 }
 

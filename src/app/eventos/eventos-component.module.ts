@@ -1,3 +1,4 @@
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { DialogConfirmationComponent } from '../components/evento-dialog-confirmation/evento-dialog-confirmation.component';
 import { EventosFormComponent } from './eventos-form/eventos-form.component';
 import { EventosComponentComponent } from './eventos-component/eventos-component.component';
@@ -19,6 +20,7 @@ import { EventosEditFormComponent } from './eventos-edit-form/eventos-edit-form.
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExibirEventoComponent } from './exibir-evento/exibir-evento.component';
 import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { MatTableModule } from '@angular/material/table'
     EventosFormComponent,
     EventosEditFormComponent,
     DialogConfirmationComponent,
-    ExibirEventoComponent
+    ExibirEventoComponent,
   ],
   imports: [
+    NgbPaginationModule,
     CommonModule,
     EventosComponentRoutingModule,
     MatToolbarModule,
@@ -43,7 +46,9 @@ import { MatTableModule } from '@angular/material/table'
     MatInputModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    NgbModule,
+    MatPaginatorModule
   ]
 })
 export class EventosComponentModule { }

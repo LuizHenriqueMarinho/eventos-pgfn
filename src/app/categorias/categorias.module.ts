@@ -17,13 +17,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table'
-
+//import { NgbdModalBasic } from './modal-basic';
 
 @NgModule({
   declarations: [
     CategoriaDialogConfirmationComponent,
     CategoriasComponentComponent,
     CategoriaDialogConfirmationComponent],
+
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -39,7 +40,7 @@ import { MatTableModule } from '@angular/material/table'
     MatSnackBarModule,
     MatDialogModule,
     MatTableModule,
-    CategoriasRoutingModule
+    CategoriasRoutingModule,
   ]
 })
 export class CategoriasModule { }

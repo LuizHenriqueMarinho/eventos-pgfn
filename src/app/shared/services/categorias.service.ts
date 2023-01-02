@@ -1,6 +1,7 @@
+import { environment } from './../../../enviroments/enviroment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { Categorias } from '../models/Categorias';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Categorias } from '../models/Categorias';
 })
 export class CategoriasService {
 
-  private readonly linkAPI = 'http://localhost:8080/categorias';
+  private readonly linkAPI = environment.apiUrlBase + '/categorias';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -42,4 +43,7 @@ export class CategoriasService {
     return this.httpClient.get<Categorias>(`${this.linkAPI}/${id}`)
   }
 
+  filter(nome : String): Observable<any> {
+    return this.httpClient.get(`${this.linkAPI}/busca?nome=${nome}`);
+  }
 }

@@ -1,10 +1,12 @@
-<mat-toolbar color="primary">
-  <span>eventos PGFN</span>
-  <ul>
-    <li> <a [routerLink]="['/categorias']" style="color: white"> categorias </a></li>
-    <li> <a [routerLink]="['/eventos']" style="color: white"> eventos </a></li>
-  </ul>
-</mat-toolbar>
+<div>
+  <mat-toolbar class="fixed-top">
+    <span> <a [routerLink]="['/eventos']" style="color: white"> PGFN </a></span>
+    <ul>
+      <li> <a [routerLink]="['/categorias']" style="color: white"> categorias </a></li>
+      <li> <a [routerLink]="['/eventos']" style="color: white"> eventos </a></li>
+    </ul>
+  </mat-toolbar>
+</div>
 
 
 <!-- <app-eventos-component></app-eventos-component> -->

@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="margin-top">
   <mat-card-header>
     <mat-card-title>formulario de evento</mat-card-title>
   </mat-card-header>
@@ -26,7 +26,19 @@
       <input type="datetime-local" matInput max="9999-12-31T23:59" class="form-control" formControlName="data">
     </mat-form-field>
 
+    <div class="mb-3">
+      <label class="form-label" id="label-file-1" >Imagem</label>
+      <input required class="form-control" type="file" (change)="onFileChanged($event)" accept="image/*" formControlName="imagem">
+      <div class="invalid-feedback">
+        Imagem é obrigatório.
+      </div>
+    </div>
 
+    <mat-card-header>
+      <div class="container-fluid text-center">
+        <img class="card-img-top img-responsive center-block imagem-noticia" src={{createUrl(eventos.imagem.id)}} alt="imagem">
+      </div>
+    </mat-card-header>
 
     <!-- <mat-form-field class="full-width">
       <input matInput placeholder="Categoria" formControlName="category">
@@ -34,11 +46,23 @@
 
     <div *ngIf="categorias$ | async as categorias; else loading">
       <mat-form-field class="full-width">
-        <mat-select placeholder="Categoria" [(ngModel)]="cat" formControlName="categoria">
+        <mat-label>Categoria*</mat-label>
+        <mat-select formControlName="categoria" >
           <mat-option *ngFor="let categoria  of categorias" [value]="categoria" >{{ categoria.nome }}</mat-option>
        </mat-select>
       </mat-form-field>
-     </div>
+
+      <!-- <div  ng-controller="MyCtrl"> -->
+        <!-- <select formControlName="categoria">
+          <option *ngFor="let categoria  of categorias" [ngValue]="categoria" > {{ categoria.nome }}
+          </option>
+        </select> -->
+
+      <!-- </div> -->
+
+
+
+    </div>
 
    <ng-template #loading>
       <div class="loading-spinner">
@@ -49,7 +73,9 @@
   </form>
 
   <mat-card-actions>
-    <button (click)="onSubmitEdit()" mat-raised-button color="primary" *ngIf = "form.status == 'VALID'" >Salvar</button> <!--(click)="onSubmit()"-->
+    <button (click)="onSubmitEdit()" mat-raised-button id="save-button" *ngIf = "form.status == 'VALID'" >Salvar</button> <!--(click)="onSubmit()"-->
     <button [routerLink]="['/eventos']"   mat-raised-button >Cancelar</button> <!--(click)="onCancel()"-->
   </mat-card-actions>
 </mat-card>
+
+<!-- {{form.value | json}} -->

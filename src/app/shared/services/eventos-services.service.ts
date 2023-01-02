@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/enviroments/enviroment';
 import { Eventos } from '../models/eventos';
 import { Page } from '../models/page';
 import { PageParams } from '../models/page-params';
@@ -11,7 +12,7 @@ import { UtilService } from './util.service';
 })
 export class EventosServicesService {
 
-  private readonly LinkAPI = 'http://localhost:8080/eventos-pgfn';
+  private readonly LinkAPI = environment.apiUrlBase + '/eventos-pgfn';
 
   constructor(private httpClient: HttpClient) { }
 

@@ -1,3 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+
 .main-actions
 {
   width:100%;
@@ -8,15 +13,18 @@
 .add-button
 {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .flex
 {
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  min-height: 600px;
 }
 
 .button-actions
@@ -34,8 +42,19 @@ mat-card .backgroundEffect {
 mat-card:hover {
   transform: scale(1.025);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px;
-  background: #ade5ff;
+  background: #f9ccd1;
 
+}
+
+.example-card
+{
+  height: 350px;
+  justify-content: space-between;
+}
+
+#if-um-card
+{
+  min-width: 320px;
 }
 
 .pesquisa-add
@@ -53,7 +72,33 @@ mat-card:hover {
   padding-top: 10px;
 }
 
-.button-pesquisa
+#button-pesquisa
 {
   height: 55px;
+  background-color: #930035;
+  color: white;
+}
+
+#button-limpar
+{
+  height: 55px;
+}
+
+
+.events-button
+{
+  background-color: #930035;
+  color: white;
+}
+
+#favorite-color
+{
+  color: #930035;
+}
+
+.imagem-noticia{
+  object-fit: contain;
+  max-height:200px;
+  //min-width: 220px;
+  //height: 300px;
 }

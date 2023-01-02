@@ -7,6 +7,16 @@ mat-card
   align-items: center;
 }
 
+.margin-top
+{
+  margin-top: 70px;
+}
+
+.margin-bottom
+{
+  margin-bottom: 300px;
+}
+
 .full-width
 {
   width: 100%;
@@ -38,4 +48,10 @@ table {
   align-items: center;
   height: 60px;
 
+}
+
+#save-button
+{
+  background-color: #930035;
+  color: white;
 }

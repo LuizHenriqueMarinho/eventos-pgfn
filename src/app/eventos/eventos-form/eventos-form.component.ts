@@ -9,6 +9,8 @@ import { CategoriasService } from 'src/app/shared/services/categorias.service';
 import { catchError, } from 'rxjs/operators';
 import { Eventos } from '../../shared/models/eventos';
 import * as moment from 'moment';
+import { ArquivoService } from 'src/app/shared/services/arquivo.service';
+import { Arquivo } from 'src/app/shared/models/arquivo';
 
 @Component({
   selector: 'app-eventos-form',
@@ -21,13 +23,16 @@ export class EventosFormComponent {
 
   form: FormGroup;
 
+  idImagem : number;
+
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private EventosService: EventosServicesService,
     private snackBar: MatSnackBar,
     private location: Location,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
     //private form: FormGroup
+    private arquivoService: ArquivoService
   ) {}
 
   ngOnInit(): void
@@ -40,7 +45,10 @@ export class EventosFormComponent {
         local: ["", Validators.required],
         data:["", Validators.required],
         detalhes:[""],
-        categoria:  new FormControl('', Validators.required)
+        categoria:  new FormControl('', Validators.required),
+        imagem: new FormGroup({
+          id: new FormControl('', [Validators.required])
+        }),
       }
     )
   }
@@ -85,4 +93,22 @@ export class EventosFormComponent {
       })
     )
   }
+
+  ////////////////////////////arquivo
+
+  onFileChanged($event: Event): void {
+
+    const target = $event.target as HTMLInputElement; /////<=
+    const files = target.files as FileList; /////<=
+    if (files && files.length) {    ////<=
+
+    const file = files[0];  //<=
+    this.arquivoService.uploadArquivo(file).subscribe((arquivo: Arquivo) => {
+      this.idImagem = arquivo.id;
+      this.form.get('imagem.id').setValue(this.idImagem);
+    })
+
+    }
+  }
+
 }

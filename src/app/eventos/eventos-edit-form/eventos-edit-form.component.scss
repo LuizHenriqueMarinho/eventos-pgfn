@@ -11,6 +11,7 @@
 
 mat-card
 {
+  min-height: 650px;
   max-width: 80%;
   margin: 2em auto;
   text-align: center;
@@ -23,3 +24,19 @@ mat-card-header
   margin-bottom: 15px;
 }
 
+.margin-top
+{
+  margin-top: 70px;
+}
+
+#save-button
+{
+  background-color: #930035;
+  color:white;
+}
+
+.imagem-noticia{
+  object-fit: contain;
+  max-height:420px;
+  max-width: 650px;
+}

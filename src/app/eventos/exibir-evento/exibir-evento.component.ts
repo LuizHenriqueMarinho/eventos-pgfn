@@ -7,6 +7,7 @@ import { EventosServicesService } from 'src/app/shared/services/eventos-services
 import { Eventos } from '../../shared/models/eventos';
 import { DialogConfirmationComponent } from 'src/app/components/evento-dialog-confirmation/evento-dialog-confirmation.component';
 import { MatDialog } from '@angular/material/dialog';
+import { environment } from 'src/enviroments/enviroment';
 
 @Component({
   selector: 'app-exibir-evento',
@@ -85,5 +86,10 @@ ngOnInit(): void {
     dateToFormat = `${ano}-${mes}-${dia}T${h}:${m}:${s}`;
     return dateToFormat;
   }
+
+  public createUrl(id : number): string {
+    return `${environment.apiUrlBase}/arquivo/${id}`;
+  }
+
 
 }
